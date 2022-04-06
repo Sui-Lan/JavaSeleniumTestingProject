@@ -3,6 +3,8 @@ package com.example.page;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public interface IBasePage {
 
     void waitAndClickElement(WebElement element);
@@ -14,5 +16,8 @@ public interface IBasePage {
     boolean verificationDisplayedElement(WebElement element);
     void hoverElement(WebElement elementPrimary, WebElement elementSecondary);
     void alertBoxGetText();
+    void verifyImageActive(List<WebElement> imagesList);
+    void secondaryClickElement(WebElement element);
+    void waitAlertIsPresent();
 
 }

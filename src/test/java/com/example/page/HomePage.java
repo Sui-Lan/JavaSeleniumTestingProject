@@ -16,7 +16,6 @@ public class HomePage {
     @FindBy(xpath = "//a[@href='/login']")
     private WebElement linkFormAuthentication;
 
-    //@FindBy(xpath = "//a[@href='/add_remove_elements']")
     @FindBy(xpath = "//a[contains(@href, '/add_remove_elements')]")
     private WebElement linkAddRemoveElements;
 
@@ -25,6 +24,12 @@ public class HomePage {
 
     @FindBy(xpath = "//a[@href='/broken_images']")
     private WebElement linkBrokenImages;
+
+    @FindBy(xpath = "//a[@href='/checkboxes']")
+    private WebElement linkCheckBoxes;
+
+    @FindBy(xpath = "//a[@href='/context_menu']")
+    private WebElement linkContextMenu;
 
     public void clickLinkFormAuthentication() {
         iBasePage.clickElement(linkFormAuthentication);
@@ -40,6 +45,10 @@ public class HomePage {
 
     public void clickLinkBrokenImages() {
         iBasePage.clickElement(linkBrokenImages);
+    }
+
+    public void clickLinkContextMenu() {
+        iBasePage.clickElement(linkContextMenu);
     }
 
 }

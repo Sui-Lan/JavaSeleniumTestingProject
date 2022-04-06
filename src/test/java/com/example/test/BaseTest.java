@@ -11,7 +11,7 @@ public class BaseTest {
         Driver.initializeDriver();
     }
 
-    @After
+    //@After
     public void afterTest() {
         sleep(4000);
         Driver.closeDriver();

@@ -15,7 +15,7 @@ public class BrokenImagesPage {
 
     IBasePage iBasePage = new BasePage();
 
-    @FindBy(tagName = "//img")
+    @FindBy(tagName = "img")
     private List<WebElement> listImages;
 
     public List<WebElement> getListImages() {

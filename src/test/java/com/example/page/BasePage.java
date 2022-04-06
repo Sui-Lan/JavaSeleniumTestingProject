@@ -1,13 +1,20 @@
 package com.example.page;
 
 import com.example.utils.Driver;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 public class BasePage implements IBasePage {
+
+    Actions actions = new Actions(Driver.getDriver());
 
     @Override
     public void waitAndClickElement(WebElement element) {
@@ -22,7 +29,6 @@ public class BasePage implements IBasePage {
     @Override
     public void waitDisplayedAlertBox() {
        Driver.getDriver().switchTo().alert().sendKeys("Text");
-
     }
 
     @Override
@@ -58,5 +64,36 @@ public class BasePage implements IBasePage {
         Alert promptAlert  = Driver.getDriver().switchTo().alert();
         String alertText = promptAlert.getText();
         System.out.println("Alert text is " + alertText);
+    }
+
+    @Override
+    public void verifyImageActive(List<WebElement> imagesList) {
+        int invalidImageCount = 0;
+        try {
+            for (WebElement img : imagesList) {
+                if (img != null) {
+                    HttpClient client = HttpClientBuilder.create().build();
+                    HttpGet request = new HttpGet(img.getAttribute("src"));
+                    HttpResponse response = client.execute(request);
+                    // verifying response code, the HttpStatus should be 200 if not,
+                    // increment as invalid images count
+                    if (response.getStatusLine().getStatusCode() != 200)
+                        invalidImageCount++;
+                }
+            }
+            System.out.println("Total no. of images broken are " + invalidImageCount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void secondaryClickElement(WebElement element) {
+        actions.contextClick(element).perform();
+    }
+
+    @Override
+    public void waitAlertIsPresent() {
+        Driver.getDriverWait(30).until(ExpectedConditions.alertIsPresent());
     }
 }
